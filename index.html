@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<!--
+██╗  ██╗███████╗██╗   ██╗██╗███╗   ██╗ ██████╗ ██╗██╗         ██████╗ ██████╗ ███╗   ███╗
+██║ ██╔╝██╔════╝██║   ██║██║████╗  ██║██╔════╝ ██║██║        ██╔════╝██╔═══██╗████╗ ████║
+█████╔╝ █████╗  ██║   ██║██║██╔██╗ ██║██║  ███╗██║██║        ██║     ██║   ██║██╔████╔██║
+██╔═██╗ ██╔══╝  ╚██╗ ██╔╝██║██║╚██╗██║██║   ██║██║██║        ██║     ██║   ██║██║╚██╔╝██║
+██║  ██╗███████╗ ╚████╔╝ ██║██║ ╚████║╚██████╔╝██║███████╗██╗╚██████╗╚██████╔╝██║ ╚═╝ ██║
+╚═╝  ╚═╝╚══════╝  ╚═══╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝
+ -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>kevin</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="shortcut icon" href="favicon.ico">
+	<script src="lib/jquery.js"/>
+	<script type="text/javascript" src="lib/paper.js"/>
+	<script src="lib/mediaelement.min.js"/>
+<script type="text/paperscript" canvas="myCanvas" src="mathStuff.js?1" id="mathStuff.js?1" data-paper-loaded="true"/>
+    <script>
+        $(function(){
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+            {
+                // Hide words, show play button
+                $("#myCanvas").hide();
+                $("body").click(function()
+                {
+                    $("#myCanvas").show();
+                    $(".play").hide();
+                    $("#bernies")[0].play();
+                });
+            }
+            else {
+                $(".play").hide();
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="play" style="display: none;"><img src="img/play.png"></div>
+	<div class="twitt"><a href="http://twitter.com/orangeepuddin" target="_blank">@orangeepuddin</a></div>
+
+	<img src="img/bern1.png" id="bern1" class="bernies">
+	<img src="img/bern2.png" id="bern2" class="bernies">
+	<img src="img/bern3.png" id="bern3" class="bernies">
+	<img src="img/bern4.png" id="bern4" class="bernies">
+	<img src="img/bern5.png" id="bern5" class="bernies">
+	<img src="img/bern6.png" id="bern6" class="bernies">
+	<img src="img/bern7.png" id="bern7" class="bernies">
+	<img src="img/bern4.png" id="bern4" class="bernies">
+
+	<canvas id="myCanvas" resize="" width="950" height="944" style="background-color: rgb(65, 222, 229);">
+	</canvas>
+
+	<audio id="bernies" autoplay="" autobuffer="" loop="" style="display:none" src="bern.mp3">
+	  <source src="bern.mp3" type="audio/mpeg">
+	  <source src="bern.ogg" type="audio/ogg">
+	</audio>
+
+</body>
+
+</html>
