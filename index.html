@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+    <head>
+        <base href="/">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="fragment" content="!">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta property="og:description" content="">
+        <meta property="og:image" content="">
+        <meta property="og:site_name" content="">
+        <meta property="og:title" content="">
+        <meta property="og:url" content="">
+        <meta property="og:type" content="website">
+        <title>Spaceland</title>
+        <link href='/main.css' rel='stylesheet' type='text/css'>
+
+    </head>
+    <body>
+        <div id="background"></div>
+        <script src="/lib/jquery.min.js"></script>
+        <script src="/lib/three.js"></script>
+        <script>
+            $.getScript( "/lib/background.js", function( textStatus, jqxhr ) {
+                console.log( textStatus ); // Success
+                console.log( jqxhr.status ); // 200
+                console.log( "Load was performed." );
+
+                function render() {
+                    window.Background.render();
+
+                    //-- http://css-tricks.com/using-requestanimationframe/
+                    //-- Runs at 60 frames per second
+                    requestAnimationFrame(render);
+                }
+                $(window).ready(function() {
+                $(window).scroll(function() {
+                    window.Background.update();
+                });
+                window.Background.init($('#background'));
+                render();
+                });
+
+            });
+
+        </script>
+    </body>
+</html>
