@@ -1,48 +1,97 @@
-<!DOCTYPE html>
-    <head>
-        <base href="/">
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="fragment" content="!">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta property="og:description" content="">
-        <meta property="og:image" content="">
-        <meta property="og:site_name" content="">
-        <meta property="og:title" content="">
-        <meta property="og:url" content="">
-        <meta property="og:type" content="website">
-        <title>Spaceland</title>
-        <link href='/main.css' rel='stylesheet' type='text/css'>
 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>kevingil</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="/main.css">
     </head>
     <body>
-        <div id="background"></div>
-        <script src="/lib/jquery.min.js"></script>
+        <div id="container"></div>
         <script src="/lib/three.js"></script>
         <script>
-            $.getScript( "/lib/background.js", function( textStatus, jqxhr ) {
-                console.log( textStatus ); // Success
-                console.log( jqxhr.status ); // 200
-                console.log( "Load was performed." );
 
-                function render() {
-                    window.Background.render();
+            var camera, scene, renderer;
+            var enemies = [];
+            var enemySpeed = .2;
+            var sphereRadius = .5;
+            var enemyRangeX = window.innerWidth;;
+            var enemyRangeY = window.innerHeight;
+            var enemyRangeZ = 0;
+            var nEnemies = 1000;
 
-                    //-- http://css-tricks.com/using-requestanimationframe/
-                    //-- Runs at 60 frames per second
-                    requestAnimationFrame(render);
+            init();
+            animate();
+
+            function init() {
+
+                // renderer
+
+                var container = document.getElementById( "container" );
+                renderer = new THREE.WebGLRenderer();
+                renderer.setSize( container.clientWidth, container.clientHeight );
+                document.body.appendChild( container );
+                container.appendChild( renderer.domElement );
+
+                // camera
+
+                camera = new THREE.PerspectiveCamera( 70, container.clientWidth / container.clientHeight, 1, 1000 );
+                camera.position.z = 600;
+
+                // scene
+
+                scene = new THREE.Scene();
+
+                // mesh properties
+
+                var geometry = new THREE.SphereGeometry( sphereRadius );
+
+                var texture = THREE.ImageUtils.loadTexture( 'textures/main.jpg' );
+                texture.anisotropy = renderer.getMaxAnisotropy();
+
+                var material = new THREE.MeshBasicMaterial( { map: texture } );
+
+                // enemies
+
+                for ( var i = 0; i < nEnemies; i++ ) {
+                    var mesh = new THREE.Mesh( geometry, material );
+                    enemyRangeZ = Math.floor(Math.random()*500) + 1; // get a random number
+                    enemyRangeZ *= Math.floor(Math.random()*2) == 1 ? 1 : -1; // make it positive/negative
+                    mesh.position.set( enemyRangeX/2 - enemyRangeX * Math.random(),
+                                       enemyRangeY/2 - enemyRangeY * Math.random(),
+                                       enemyRangeZ);
+                    scene.add( mesh );
+
+                    enemies.push( mesh );
                 }
-                $(window).ready(function() {
-                $(window).scroll(function() {
-                    window.Background.update();
-                });
-                window.Background.init($('#background'));
-                render();
-                });
 
-            });
+            }
+
+            function animate() {
+
+                requestAnimationFrame( animate );
+
+                // update enemies
+                for ( var i = 0; i < enemies.length; i++ ){
+                    if ( enemies[i].position.y < -enemyRangeY/2 ) { // if the enemy has moved below the container
+                        enemies[i].position.x = enemyRangeX/2 - enemyRangeX * Math.random(); //set new x-coord for variety
+                        enemies[i].position.y = enemyRangeY/2; // set y-coord at top of container
+                    } else {
+                        enemies[i].position.y -= enemySpeed; // translate enemy downwards
+                    }
+                }
+
+                renderer.render( scene, camera );
+
+            }
 
         </script>
+
+        <div id="info">kevingil<br/>
+            <a href="http://linkedin.com/in/kevingil">resume</a> |
+            <a href="http://github.com/kevingil">code</a> |
+            <a href="http://instagram.com/orangeepuddin">pix</a>
+        </div>
+
     </body>
 </html>
