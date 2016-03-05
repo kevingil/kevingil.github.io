@@ -17,7 +17,7 @@ body {
 
 
 #info {
-    position: absolute;
+    position: fixed;
     top: 43%;
     padding: 10px;
     width: 100%;
