@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<img id="img" onclick='changeImage(this);' src="0.png" style="width:100%">
+
+<script>
+ var img = document.getElementById("img");
+ var source = img.getAttribute('src');
+function changeImage(img) {
+  if (source === '0.png') {
+    img.src = img.src.replace("0.png", "1.png");
+  } /* else if (source === '1.png') {
+    img.src = img.src.replace("1.png", "0.png");
+  } */
+}
+</script>
+
+
+</body>
+</html>

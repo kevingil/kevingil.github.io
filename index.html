@@ -10,11 +10,6 @@
         <div id="container"></div>
         <script src="/lib/three.js"></script>
         <script>
-            
-            
-
-
-            
 
             var camera, scene, renderer;
             var enemies = [];
@@ -25,11 +20,9 @@
             var enemyRangeZ = 0;
             var nEnemies = 750;
 
-            
-            
             init();
             animate();
-            
+
             function init() {
 
                 // renderer
@@ -68,10 +61,8 @@
                                        enemyRangeY/2 - enemyRangeY * Math.random(),
                                        enemyRangeZ);
                     scene.add( mesh );
-
                     enemies.push( mesh );
                 }
-
             }
 
             function animate() {
@@ -79,6 +70,7 @@
                 requestAnimationFrame( animate );
 
                 // update enemies
+                
                 for ( var i = 0; i < enemies.length; i++ ){
                     if ( enemies[i].position.y < -enemyRangeY/2 ) { // if the enemy has moved below the container
                         enemies[i].position.x = enemyRangeX/2 - enemyRangeX * Math.random(); //set new x-coord for variety
@@ -87,14 +79,11 @@
                         enemies[i].position.y -= enemySpeed; // translate enemy downwards
                     }
                 }
-
                 renderer.render( scene, camera );
-
             }
 
-            
         </script>
-        
+
 
         <div id="info">kevingil<br/>
             <a href="http://github.com/kevingil">git</a> |
